@@ -1,3 +1,9 @@
+--[[
+bruh why, pls give credits:
+created by: Exodi
+and edited by: JoeMommaObama
+]]--
+
 local GUI = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
 local AutoLift = Instance.new("TextButton")
