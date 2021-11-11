@@ -5,6 +5,8 @@ and edited by: JoeMommaObama
 ]]--
 
 local GUI = Instance.new("ScreenGui")
+local opnbtngui = Instance.new("ScreenGui")
+local opnbtn = Instance.new("TextButton")
 local Main = Instance.new("Frame")
 local AutoLift = Instance.new("TextButton")
 local credits = Instance.new("TextButton")
@@ -19,6 +21,7 @@ local AutoReb = Instance.new("TextButton")
 GUI.Name = "GUI"
 GUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 GUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+GUI.ResetOnSpawn = false
 
 Main.Name = "Main"
 Main.Parent = GUI
@@ -71,7 +74,7 @@ TP.BorderSizePixel = 4
 TP.Position = UDim2.new(0.358371019, 0, 0.122917295, 0)
 TP.Size = UDim2.new(0, 140, 0, 51)
 TP.Font = Enum.Font.Cartoon
-TP.Text = "Legends Gym"
+TP.Text = "tp locations"
 TP.TextColor3 = Color3.fromRGB(0,0,0)
 TP.TextSize = 25.000
 
@@ -118,6 +121,24 @@ AutoReb.Font = Enum.Font.Cartoon
 AutoReb.Text = "Auto Rebirth"
 AutoReb.TextColor3 = Color3.fromRGB(0,0,0)
 AutoReb.TextSize = 25.000
+-- open button --
+
+opnbtngui.Name = "opnbtngui"
+opnbtngui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+opnbtngui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+opnbtngui.Enabled = false
+opnbtngui.ResetOnSpawn = false
+
+opnbtn.Parent = opnbtngui
+opnbtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+opnbtn.BorderSizePixel = 4
+opnbtn.Position = UDim2.new(0.17,-140,1,-51)
+opnbtn.Size = UDim2.new(0, 140, 0, 51)
+opnbtn.Font = Enum.Font.Cartoon
+opnbtn.Text = "Open GUI"
+opnbtn.TextColor3 = Color3.fromRGB(0,0,0)
+opnbtn.TextSize = 25.000
+
 -- scripts --
 local function autolift()
 	local script = Instance.new('LocalScript', AutoLift)
@@ -138,15 +159,27 @@ local function autolift()
 	
 end
 coroutine.wrap(autolift)()
+local loc = 1
 local function tp()
 	local script = Instance.new('LocalScript', TP)
-
+    local locations = {
+     {2386.89038, 139.607956, 1094.26367},
+     {4298.60059, 1121.89404, -3898.68066},
+     {-2752.56543, 125.822533, -386.73703},
+     {-6917.79248, 182.352829, -1336.63928},
+     {-4.25301933, 220.993713, 1963.60168},
+     {985.910645, 163.795364, -7037.80615},
+     {4466.75342, 334.973602, -8425.74512},
+     {-1901.87695, 251.895432, -5899.64795}
+    }
 	local Button = script.Parent 
 	local character = game.Players.LocalPlayer.character
 	Button.MouseButton1Click:connect(function()
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4195.27344, 990.221802, -3876.88794, 0.999488235, 5.95610805e-09, -0.0319886059, -4.20918678e-09, 0.99999994, 5.46780257e-08, 0.0319886059, -5.45154073e-08, 0.999488235)
-		
-		
+	if loc == #locations then
+	loc = 1
+	end
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(locations[loc][1], locations[loc][2], locations[loc][3])
+   loc = loc + 1
 	end)
 	
 end
@@ -207,5 +240,10 @@ local function autoreb()
 end
 coroutine.wrap(autoreb)()
 Title.MouseButton1Click:connect(function()
-   GUI:destroy()
+   GUI.Enabled = false
+   opnbtngui.Enabled = true
+end)
+opnbtn.MouseButton1Click:connect(function()
+   GUI.Enabled = true
+   opnbtngui.Enabled = false
 end)
