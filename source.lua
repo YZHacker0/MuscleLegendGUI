@@ -175,7 +175,7 @@ local function tp()
 	local Button = script.Parent 
 	local character = game.Players.LocalPlayer.character
 	Button.MouseButton1Click:connect(function()
-	if loc == #locations then
+	if loc == #locations + 1 then
 	loc = 1
 	end
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(locations[loc][1], locations[loc][2], locations[loc][3])
